@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ClassCtrMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into CLASS(
+			NAME,	
+			REMARK,
+		    CREATOR,
+		    CREATOR_NAME,
+		    CREATE_TIME,	
+			ID
+		) values (
+			#{NAME},	
+			#{REMARK},	
+			#{CREATOR},	
+			#{CREATOR_NAME},	
+			#{CREATE_TIME},	
+			#{ID}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from CLASS
+		where 
+			ID = #{ID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  CLASS
+			set 
+				NAME = #{NAME},
+				REMARK = #{REMARK},
+			ID = ID
+			where 
+				ID = #{ID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			NAME,	
+			REMARK,	
+			ID
+		from 
+			CLASS
+		where 
+			ID = #{ID}
+	</select>
+	
+	
+	<!-- 列表 检索-->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.NAME,	
+				a.REMARK,	
+				a.ID
+		from 
+				CLASS a  
+		where 1 = 1
+		<if test="pd.KEYW != null and pd.KEYW != ''"><!-- 关键词检索 -->
+			and
+				(
+					 a.NAME LIKE CONCAT(CONCAT('%', #{pd.KEYW}),'%')
+					 or 
+					 a.REMARK LIKE CONCAT(CONCAT('%', #{pd.KEYW}),'%') 
+					
+				)
+		</if>
+		order by a.CREATE_TIME desc,a.ID
+	</select>
+	<!-- 列表 未分班学生-->
+	<select id="listStu_listPage" parameterType="page" resultType="pd">
+		select
+				a.ID,	
+				a.STD_NUM,	
+				a.NAME,	
+				a.GENDER,	
+				a.BIRTHDAY,	
+				a.MINZU,	
+				a.MINZU_NAME,	
+				a.STATUS,	
+				a.STATUS_NAME,	
+				a.SFZH,	
+				a.SCHOOL,	
+				a.SCHOOL_NAME,	
+				a.SCHOOL_YEAR,	
+				a.CLASS,	
+				a.ROOM_NUM,	
+				a.JR_CLASS,	
+				a.JR_CLASS_NAME,	
+				a.ENGLISH,	
+				a.ENGLISH_NAME,	
+				a.PHONE,	
+				a.QIANDAOKAHAO,	
+				a.PARENT,	
+				a.PARENT_PHONE,	
+				a.JINJI_LXR,	
+				a.JINJI_DH,	
+				a.DAOYUAN,	
+				a.DAOYUAN_DH,	
+				a.YIXIANG,	
+				a.PIC,	
+				a.SPECIALITY,	
+				a.SPECIALITY_NAME,	
+				a.EMAIL,	
+				a.QQ,	
+				a.REMARK,	
+				a.DELETED,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.CREATE_TIME
+		from 
+				STUDENT a
+		<where>
+				<if test=" pd.STATUS != null and pd.STATUS !='' ">
+					and a.STATUS = #{pd.STATUS} 
+				</if>
+				<if test="pd.Filter=='UnAssigned'">
+					and(a.JR_CLASS is null or a.JR_CLASS='')
+				</if>
+				<if test="pd.Filter=='Assigned'">
+					and a.JR_CLASS is not null and a.JR_CLASS &lt;&gt;''
+				</if>
+		</where>
+		order by a.CREATE_TIME desc,a.ID
+	</select>
+	<!-- 列表 教师-->
+	<select id="listTea_listPage" parameterType="page" resultType="pd">
+		select
+				a.ID,
+			 	a.NAME,	
+				a.GENDER,	
+				a.JOB,	
+				a.JOB_NAME,	
+				a.CREATE_TIME,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.DELETED,
+				a.SFZH,
+				a.PHONE,
+				a.BIRTHDAY,
+				a.ZZMM,
+				a.ZZMM_NAME,
+				a.MINZU,
+				a.MINZU_NAME,
+				a.ADDRESS,
+				a.SUBJECT,
+				a.SUBJECT_NAME,
+				a.ENTRY_TIME,
+				a.STATUS,
+				a.STATUS_NAME,
+				a.PIC,
+				a.HONOR,
+				a.WORK_AGE,
+				a.WAGE,
+				a.EDU,
+				a.EDU_NAME
+		 from 
+				STAFF a
+		<where>
+				<if test=" pd.JOB != null and pd.JOB !='' ">
+					and a.job = #{pd.JOB} and deleted='0'
+				</if>
+		</where>
+		order by a.CREATE_TIME desc,a.ID
+	</select>
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.NAME,	
+				a.REMARK,	
+				a.ID
+		from 
+				CLASS a 
+				order by a.CREATE_TIME desc,a.ID
+	</select>
+	
+	<!-- 批量删除本班级教师 -->
+	<delete id="deleteFromClass" parameterType="pd">
+		delete from CLASS_TEACHER
+		where 
+			CLASS_ID = #{DATA_CLASSID}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from CLASS
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	<!-- 新增班级老师关联,分配老师-->
+	<insert id="setClassTeacher" parameterType="pd">
+		insert into CLASS_TEACHER(
+			ID,	
+			CLASS_ID,
+			TEACHER_ID,	
+			REMARK,	
+			CREATOR,	
+			CREATOR_NAME,	
+			CREATE_TIME	
+		) values (
+			#{ID},	
+			#{CLASS_ID},
+			#{TEACHER_ID},		
+			#{REMARK},		
+			#{CREATOR},	
+			#{CREATOR_NAME},	
+			#{CREATE_TIME}
+		)
+	</insert>
+	<!-- 根据班级id查询老师 -->
+	<select id="showTeacherByClassId" parameterType="pd" resultType="pd">
+		select 
+			B.ID,
+			B.NAME 
+		from 
+			class_teacher a,
+			staff b 
+			
+		where 
+			a.teacher_id=b.id 
+			and b.job='20'
+			and a.class_id=#{CLASS_ID}
+		
+		order by a.create_time
+	</select>
+	<!-- 根据班级id查询老师 -->
+	<select id="showTeacherByClassId2" parameterType="page" resultType="pd">
+		select 
+			a.teacher_id
+		from 
+			class_teacher a
+		where 
+			a.class_id=#{pd.Str_id}
+	</select>
+	<!-- 显示班级、该班级学员信息 -->
+	<select id="showClassStdCnt_listPage" parameterType="page" resultType="pd">
+		select 
+			a.ID,
+			a.NAME,	
+			a.REMARK,
+		    a.CREATOR,
+		    a.CREATOR_NAME,
+		    a.CREATE_TIME,
+			(select count(*) from student b where b.jr_class=a.id) as STD_CNT
+		from class a
+		<where>
+			<if test=" pd.CLASS_ID != null and pd.CLASS_ID !='' ">
+			a.ID=#{pd.CLASS_ID}
+			</if>
+			<if test=" pd.CLASS_NAME != null and pd.CLASS_NAME !='' ">
+			a.NAME=#{pd.CLASS_NAME}
+			</if>
+		</where>
+		order by a.create_time desc,a.id
+	</select>
+	<!-- 根据老师id查询该老师名下的所有班级信息 -->
+	<select id="showClassStdCntByTchId" parameterType="page" resultType="pd">
+		select 
+			a.ID,
+			a.NAME,	
+			a.REMARK,
+		    a.CREATOR,
+		    a.CREATOR_NAME,
+		    a.CREATE_TIME,
+			(select count(*) from student b where b.jr_class=a.id) as STD_CNT 
+		from class a ,class_teacher c
+		where a.id=c.class_id 
+		and c.teacher_id=#{pd.TEACHER_ID}
+			
+		order by a.create_time desc,a.id
+	</select>
+	
+	<!--从班级中批量删除 （修改班级字段）-->
+	<update id="updateAll">
+		update  STUDENT
+			<set> 
+				JR_CLASS =null,
+				JR_CLASS_NAME =null,
+			</set>
+			where 
+				ID in
+				<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		           #{item}
+				</foreach>
+	</update>
+</mapper>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PayCashMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into PAY_CASH(
+			STD_ID,	
+			STD_NAME,	
+			STD_NUM,	
+			NUM,	
+			PAY_TYPE,	
+			PAY_NAME,	
+			MONEY,	
+			CREATE_TIME,	
+			CREATOR,	
+			CREATOR_NAME,	
+			ID
+		) values (
+			#{STD_ID},	
+			#{STD_NAME},	
+			#{STD_NUM},	
+			#{NUM},	
+			#{PAY_TYPE},	
+			#{PAY_NAME},	
+			#{MONEY},	
+			#{CREATE_TIME},	
+			#{CREATOR},	
+			#{CREATOR_NAME},	
+			#{ID}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from PAY_CASH
+		where 
+			ID = #{ID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  PAY_CASH
+			set 
+				NUM = #{NUM},
+				PAY_TYPE = #{PAY_TYPE},
+				PAY_NAME = #{PAY_NAME},
+				MONEY = #{MONEY},
+			ID = ID
+			where 
+				ID = #{ID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			STD_ID,	
+			STD_NAME,	
+			STD_NUM,	
+			NUM,	
+			PAY_TYPE,	
+			PAY_NAME,	
+			MONEY,	
+			CREATE_TIME,	
+			CREATOR,	
+			CREATOR_NAME,	
+			ID
+		from 
+			PAY_CASH
+		where 
+			ID = #{ID}
+	</select>
+	
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.STD_ID,	
+				a.STD_NAME,	
+				a.STD_NUM,	
+				a.NUM,	
+				a.PAY_TYPE,	
+				a.PAY_NAME,	
+				a.MONEY,	
+				a.CREATE_TIME,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.ID
+		from 
+				PAY_CASH a
+		<where>
+			<if test=" pd.ID != null and pd.ID !='' ">
+				and ID = #{pd.ID}
+			</if>
+			<if test=" pd.STD_ID != null and pd.STD_ID !='' ">
+				and STD_ID = #{pd.STD_ID}
+			</if>
+			<if test=" pd.STD_NAME != null and pd.STD_NAME !='' ">
+				and STD_NAME like #{pd.STD_NAME}
+			</if>
+			<if test=" pd.STD_NUM != null and pd.STD_NUM !='' ">
+				and STD_NUM = #{pd.STD_NUM}
+			</if>
+			<if test=" pd.NUM != null and pd.NUM !='' ">
+				and NUM like #{pd.NUM}
+			</if>
+			<if test=" pd.PAY_TYPE != null and pd.PAY_TYPE !='' ">
+				and PAY_TYPE = #{pd.PAY_TYPE}
+			</if>
+			<if test=" pd.PAY_NAME != null and pd.PAY_NAME !='' ">
+				and PAY_NAME = #{pd.PAY_NAME}
+			</if>
+			<if test=" pd.MONEY != null and pd.MONEY !='' ">
+				and MONEY = #{pd.MONEY}
+			</if>
+			<if test=" pd.CREATE_TIME != null and pd.CREATE_TIME !='' ">
+				and CREATE_TIME = #{pd.CREATE_TIME}
+			</if>
+			<if test=" pd.CREATOR != null and pd.CREATOR !='' ">
+				and CREATOR = #{pd.CREATOR}
+			</if>
+			<if test=" pd.CREATOR_NAME != null and pd.CREATOR_NAME !='' ">
+				and CREATOR_NAME = #{pd.CREATOR_NAME}
+			</if>
+			<if test=" pd.CREATE_TIME_START != null and pd.CREATE_TIME_START !='' ">
+					and  #{pd.CREATE_TIME_START} &lt;= CREATE_TIME
+			</if>
+			<if test=" pd.CREATE_TIME_END != null and pd.CREATE_TIME_END !='' ">
+				and  CREATE_TIME &lt;= #{pd.CREATE_TIME_END} 
+			</if>
+		</where>
+		order by a.CREATE_TIME desc,a.ID
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.STD_ID,	
+				a.STD_NAME,	
+				a.STD_NUM,	
+				a.NUM,	
+				a.PAY_TYPE,	
+				a.PAY_NAME,	
+				a.MONEY,	
+				a.CREATE_TIME,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.ID
+		from 
+				PAY_CASH a
+		<where>
+				<if test=" ID != null and ID !='' ">
+					and ID = #{ID}
+				</if>
+				<if test=" STD_ID != null and STD_ID !='' ">
+					and STD_ID = #{STD_ID}
+				</if>
+				<if test=" STD_NAME != null and STD_NAME !='' ">
+					and STD_NAME = #{STD_NAME}
+				</if>
+				<if test=" STD_NUM != null and STD_NUM !='' ">
+					and STD_NUM = #{STD_NUM}
+				</if>
+				<if test=" NUM != null and NUM !='' ">
+					and NUM = #{NUM}
+				</if>
+				<if test=" PAY_TYPE != null and PAY_TYPE !='' ">
+					and PAY_TYPE = #{PAY_TYPE}
+				</if>
+				<if test=" PAY_NAME != null and PAY_NAME !='' ">
+					and PAY_NAME = #{PAY_NAME}
+				</if>
+				<if test=" MONEY != null and MONEY !='' ">
+					and MONEY = #{MONEY}
+				</if>
+				<if test=" CREATE_TIME != null and CREATE_TIME !='' ">
+					and CREATE_TIME = #{CREATE_TIME}
+				</if>
+				<if test=" CREATOR != null and CREATOR !='' ">
+					and CREATOR = #{CREATOR}
+				</if>
+				<if test=" CREATOR_NAME != null and CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{CREATOR_NAME}
+				</if>
+				<if test=" CREATE_TIME_START != null and CREATE_TIME_START !='' ">
+					and  #{CREATE_TIME_START} &lt;= CREATE_TIME
+				</if>
+				<if test=" CREATE_TIME_END != null and CREATE_TIME_END !='' ">
+					and  CREATE_TIME &lt;= #{CREATE_TIME_END} 
+				</if>
+		</where>
+		order by ID 
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from PAY_CASH
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<select id="select_count" parameterType="pd" resultType="int">
+		select count(ID) as c from PAY_CASH
+		<where>
+				<if test=" ID != null and ID !='' ">
+					and ID = #{ID}
+				</if>
+				<if test=" STD_ID != null and STD_ID !='' ">
+					and STD_ID = #{STD_ID}
+				</if>
+				<if test=" STD_NAME != null and STD_NAME !='' ">
+					and STD_NAME = #{STD_NAME}
+				</if>
+				<if test=" STD_NUM != null and STD_NUM !='' ">
+					and STD_NUM = #{STD_NUM}
+				</if>
+				<if test=" NUM != null and NUM !='' ">
+					and NUM = #{NUM}
+				</if>
+				<if test=" PAY_TYPE != null and PAY_TYPE !='' ">
+					and PAY_TYPE = #{PAY_TYPE}
+				</if>
+				<if test=" PAY_NAME != null and PAY_NAME !='' ">
+					and PAY_NAME = #{PAY_NAME}
+				</if>
+				<if test=" MONEY != null and MONEY !='' ">
+					and MONEY = #{MONEY}
+				</if>
+				<if test=" CREATE_TIME != null and CREATE_TIME !='' ">
+					and CREATE_TIME = #{CREATE_TIME}
+				</if>
+				<if test=" CREATOR != null and CREATOR !='' ">
+					and CREATOR = #{CREATOR}
+				</if>
+				<if test=" CREATOR_NAME != null and CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{CREATOR_NAME}
+				</if>
+		</where>
+	</select>
+</mapper>

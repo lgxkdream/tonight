@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ClassHomeworkMapper">
+	
+
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			TITLE,	
+			TYPE,	
+			TYPE_NAME,	
+			FILE_NAME,
+			FILE_PATH,	
+			CREATE_TIME,	
+			CREATOR,	
+			CREATOR_NAME,	
+			ANSWER,
+			ANSWER_PATH,
+			ID
+		from 
+			HOMEWORK
+		where 
+			ID = #{ID}
+	</select>
+	
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.TITLE,	
+				a.TYPE,	
+				a.TYPE_NAME,	
+				a.FILE_NAME,
+				a.FILE_PATH,	
+				a.CREATE_TIME,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.ANSWER,
+				a.ANSWER_PATH,
+				a.ID
+		from 
+				HOMEWORK a
+	</select>
+	<!-- 列表作业详细 -->
+	<select id="HomeworkDetailed" parameterType="String" resultType="pd">
+		select
+				a.TITLE,	
+				a.TYPE,	
+				a.TYPE_NAME,	
+				a.FILE_NAME,
+				a.FILE_PATH,	
+				a.CREATE_TIME,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.ANSWER,
+				a.ANSWER_PATH,
+				a.ID
+		from 
+				HOMEWORK a
+		where
+					ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.TITLE,	
+				a.TYPE,	
+				a.TYPE_NAME,
+				a.FILE_NAME,	
+				a.FILE_PATH,	
+				a.CREATE_TIME,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.ANSWER,
+				a.ANSWER_PATH,
+				a.ID
+		from 
+				HOMEWORK a
+	</select>
+	
+	<!-- 查看作业列表 -->
+	<select id="classHomeworklistPage" parameterType="page" resultType="pd">
+		select 
+				ID,
+				TITLE,
+				CREATE_TIME
+		 from 
+				class_homework 
+		 where 
+		 		CLASS_ID=#{pd.JR_CLASS}
+	</select>
+	
+	<!--	查询	作业id	-->
+	<select id="class_ids" parameterType="pd" resultType="pd">
+		select 
+				ID,
+				TITLE,
+				CREATE_TIME,
+				HOMEWORKS
+		 from 
+				class_homework 
+		 where 
+		 		ID=#{HOMEWORK_ID}
+	</select>
+	
+<!--	再查看	-->
+	<select id="show_homework" parameterType="pd" resultType="pd">
+		select 
+				COUNT(*)
+		from 
+				STUDENT_HOMEWORK WHERE status='1' and class_homework_id=#{CLASS_HOMEWORK_ID}
+		
+	</select>
+	
+	<select id="show_studnetname" parameterType="pd" resultType="pd">
+		select 
+				student_name
+		from 
+				STUDENT_HOMEWORK WHERE status in ('0','2') and class_homework_id=#{CLASS_HOMEWORK_ID}
+		
+	</select>
+
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from HOMEWORK
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除作业 -->
+	<delete id="deleteAlls" parameterType="String">
+		delete from CLASS_HOMEWORK
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!--	查人数	-->
+	<select id="queryStudentCountByClass" parameterType="pd" resultType="pd">
+		select 
+			count(ID)
+		from 
+			STUDENT
+		where 
+			JR_CLASS = #{CLASS_ID}
+	</select>
+	
+	
+	
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+
+
+	<select id="select" parameterType="pd" resultType="pd">
+		select ID,NAME, AGE from test
+		
+		<where>
+			<if test="ID!=null and ID!=''">
+				and id=#{ID}
+			</if>
+			
+			<if test="NAME!=null and NAME!='' ">
+				and name like "%"#{NAME}"%"
+			</if>
+		</where>
+		
+	</select>
+	<select id="selectlistPage" parameterType="Page" resultType="pd">
+		select ID,NAME, AGE from test
+		
+		<where>
+			<if test="pd.ID!=null and pd.ID!=''">
+				and id=#{pd.ID}
+			</if>
+			
+			<if test="pd.NAME!=null and pd.NAME!='' ">
+				and name like "%"#{pd.NAME}"%"
+			</if>
+		</where>
+		order by ID
+	</select>
+
+	<select id="test" resultType="pd">
+	select * from test
+	<where>
+		ID in 
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</where>
+	</select>
+	<insert id="save" parameterType="pd">
+		insert into test (id,name,age) values (#{ID},#{NAME},#{AGE})
+	</insert>
+
+	<update id="update" parameterType="pd">
+		update test
+		<set> 
+			<if test="NAME!=NULL">
+				NAME=#{NAME},
+			</if>
+			<if test="AGE!=NULL">
+				AGE=#{AGE},
+			</if>
+		</set>
+		where ID=#{ID}
+	</update>
+
+	<select id="selectByIds" resultType="pd">
+		select ID,NAME,AGE from test 
+		<where>
+			id in 
+			<foreach collection="array" index="index" item="item" separator="," open="(" close=")" >
+				#{item}
+			</foreach>
+		</where> 
+	</select>
+	
+	<delete id="deleteByIds" parameterType="pd">
+		delete from test 
+		<where>
+			id in 
+			<foreach collection="ids" index="index" item="item" separator="," open="(" close=")" >
+				#{item}
+			</foreach>
+		</where> 
+	</delete>
+	
+</mapper>
