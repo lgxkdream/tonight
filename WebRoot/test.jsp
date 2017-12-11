@@ -42,9 +42,6 @@
 			alert(i+"--"+value);
 			}
 		)
-
-//		你是一头猪
-//		不，你是一只狗
 <%--		$.each(data.list, function(i, list){--%>
 <%--				nextPage(${page.currentPage});--%>
 <%--		 });--%>
