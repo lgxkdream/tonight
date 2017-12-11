@@ -42,9 +42,10 @@
 			alert(i+"--"+value);
 			}
 		)
-<%--		$.each(data.list, function(i, list){--%>
-<%--				nextPage(${page.currentPage});--%>
-<%--		 });--%>
+
+		$.each(data.list, function(i, list){
+				nextPage(${page.currentPage});
+		 });
 		
 		</script>
 		
