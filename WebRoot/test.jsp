@@ -42,6 +42,7 @@
 			alert(i+"--"+value);
 			}
 		)
+//		哈哈，我才是一只狗
 <%--		$.each(data.list, function(i, list){--%>
 <%--				nextPage(${page.currentPage});--%>
 <%--		 });--%>
