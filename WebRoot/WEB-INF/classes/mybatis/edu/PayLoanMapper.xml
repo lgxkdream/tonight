@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PayLoanMapper">
+	<insert id="save" parameterType="pd">
+		insert
+		into PAY_LOAN
+		(
+			ID
+			,STD_ID
+			,STD_NAME
+			,STD_NUM
+			,VERIFY_MONEY
+			,LOAN_MONEY
+			,FILE
+			,FILENAME
+			,CREATOR
+			,CREATOR_NAME
+			,CREATE_TIME
+			,VERIFY
+			,VERIFY_NAME
+			,VERIFY_ID
+			,VERIFY_TIME
+			,REMARK
+		)
+		values
+		(
+			#{ID}
+			,#{STD_ID}
+			,#{STD_NAME}
+			,#{STD_NUM}
+			,#{VERIFY_MONEY}
+			,#{LOAN_MONEY}
+			,#{FILE}
+			,#{FILENAME}
+			,#{CREATOR}
+			,#{CREATOR_NAME}
+			,#{CREATE_TIME}
+			,#{VERIFY}
+			,#{VERIFY_NAME}
+			,#{VERIFY_ID}
+			,#{VERIFY_TIME}
+			,#{REMARK}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="pd">
+		delete from PAY_LOAN
+		where
+		ID = #{ID}
+	</delete>
+
+	<update id="edit" parameterType="pd">
+		update PAY_LOAN
+		<set>
+				<if test=" ID != null ">
+					ID = #{ID},
+				</if>
+				<if test=" STD_ID != null ">
+					STD_ID = #{STD_ID},
+				</if>
+				<if test=" STD_NAME != null ">
+					STD_NAME = #{STD_NAME},
+				</if>
+				<if test=" STD_NUM != null ">
+					STD_NUM = #{STD_NUM},
+				</if>
+				<if test=" VERIFY_MONEY != null ">
+					VERIFY_MONEY = #{VERIFY_MONEY},
+				</if>
+				<if test=" LOAN_MONEY != null ">
+					LOAN_MONEY = #{LOAN_MONEY},
+				</if>
+				<if test=" FILE != null ">
+					FILE = #{FILE},
+				</if>
+				<if test=" FILENAME != null ">
+					FILENAME = #{FILENAME},
+				</if>
+				<if test=" CREATOR != null ">
+					CREATOR = #{CREATOR},
+				</if>
+				<if test=" CREATOR_NAME != null ">
+					CREATOR_NAME = #{CREATOR_NAME},
+				</if>
+				<if test=" CREATE_TIME != null ">
+					CREATE_TIME = #{CREATE_TIME},
+				</if>
+				<if test=" VERIFY != null ">
+					VERIFY = #{VERIFY},
+				</if>
+				<if test=" VERIFY_NAME != null ">
+					VERIFY_NAME = #{VERIFY_NAME},
+				</if>
+				<if test=" VERIFY_ID != null ">
+					VERIFY_ID = #{VERIFY_ID},
+				</if>
+				<if test=" VERIFY_TIME != null ">
+					VERIFY_TIME = #{VERIFY_TIME},
+				</if>
+				<if test=" REMARK != null ">
+					REMARK = #{REMARK},
+				</if>
+		</set>
+		where ID = #{ID}
+	</update>
+
+	<select id="select_info" parameterType="pd" resultType="pd">
+		select 
+				ID
+				,STD_ID
+				,STD_NAME
+				,STD_NUM
+				,VERIFY_MONEY
+				,LOAN_MONEY
+				,FILE
+				,FILENAME
+				,CREATOR
+				,CREATOR_NAME
+				,CREATE_TIME
+				,VERIFY
+				,VERIFY_NAME
+				,VERIFY_ID
+				,VERIFY_TIME
+				,REMARK
+		from PAY_LOAN 
+		<where>
+				<if test=" ID != null and ID !='' ">
+					and ID = #{ID}
+				</if>
+				<if test=" STD_ID != null and STD_ID !='' ">
+					and STD_ID = #{STD_ID}
+				</if>
+				<if test=" STD_NAME != null and STD_NAME !='' ">
+					and STD_NAME = #{STD_NAME}
+				</if>
+				<if test=" STD_NUM != null and STD_NUM !='' ">
+					and STD_NUM = #{STD_NUM}
+				</if>
+				<if test=" VERIFY_MONEY != null and VERIFY_MONEY !='' ">
+					and VERIFY_MONEY = #{VERIFY_MONEY}
+				</if>
+				<if test=" LOAN_MONEY != null and LOAN_MONEY !='' ">
+					and LOAN_MONEY = #{LOAN_MONEY}
+				</if>
+				<if test=" FILE != null and FILE !='' ">
+					and FILE = #{FILE}
+				</if>
+				<if test=" FILENAME != null and FILENAME !='' ">
+					and FILENAME = #{FILENAME}
+				</if>
+				<if test=" CREATOR != null and CREATOR !='' ">
+					and CREATOR = #{CREATOR}
+				</if>
+				<if test=" CREATOR_NAME != null and CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{CREATOR_NAME}
+				</if>
+				<if test=" CREATE_TIME != null and CREATE_TIME !='' ">
+					and CREATE_TIME = #{CREATE_TIME}
+				</if>
+				<if test=" VERIFY != null and VERIFY !='' ">
+					and VERIFY = #{VERIFY}
+				</if>
+				<if test=" VERIFY_NAME != null and VERIFY_NAME !='' ">
+					and VERIFY_NAME = #{VERIFY_NAME}
+				</if>
+				<if test=" VERIFY_ID != null and VERIFY_ID !='' ">
+					and VERIFY_ID = #{VERIFY_ID}
+				</if>
+				<if test=" VERIFY_TIME != null and VERIFY_TIME !='' ">
+					and VERIFY_TIME = #{VERIFY_TIME}
+				</if>
+		</where>
+		order by CREATE_TIME desc,ID 
+	</select>
+	
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+				ID
+				,STD_ID
+				,STD_NAME
+				,STD_NUM
+				,VERIFY_MONEY
+				,LOAN_MONEY
+				,FILE
+				,FILENAME
+				,CREATOR
+				,CREATOR_NAME
+				,CREATE_TIME
+				,VERIFY
+				,VERIFY_NAME
+				,VERIFY_ID
+				,VERIFY_TIME
+				,REMARK
+		from PAY_LOAN 
+		<where>
+				<if test=" ID != null and ID !='' ">
+					and ID = #{ID}
+				</if>
+				<if test=" STD_ID != null and STD_ID !='' ">
+					and STD_ID = #{STD_ID}
+				</if>
+				<if test=" STD_NAME != null and STD_NAME !='' ">
+					and STD_NAME = #{STD_NAME}
+				</if>
+				<if test=" STD_NUM != null and STD_NUM !='' ">
+					and STD_NUM = #{STD_NUM}
+				</if>
+				<if test=" VERIFY_MONEY != null and VERIFY_MONEY !='' ">
+					and VERIFY_MONEY = #{VERIFY_MONEY}
+				</if>
+				<if test=" LOAN_MONEY != null and LOAN_MONEY !='' ">
+					and LOAN_MONEY = #{LOAN_MONEY}
+				</if>
+				<if test=" FILE != null and FILE !='' ">
+					and FILE = #{FILE}
+				</if>
+				<if test=" FILENAME != null and FILENAME !='' ">
+					and FILENAME = #{FILENAME}
+				</if>
+				<if test=" CREATOR != null and CREATOR !='' ">
+					and CREATOR = #{CREATOR}
+				</if>
+				<if test=" CREATOR_NAME != null and CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{CREATOR_NAME}
+				</if>
+				<if test=" CREATE_TIME != null and CREATE_TIME !='' ">
+					and CREATE_TIME = #{CREATE_TIME}
+				</if>
+				<if test=" VERIFY != null and VERIFY !='' ">
+					and VERIFY = #{VERIFY}
+				</if>
+				<if test=" VERIFY_NAME != null and VERIFY_NAME !='' ">
+					and VERIFY_NAME = #{VERIFY_NAME}
+				</if>
+				<if test=" VERIFY_ID != null and VERIFY_ID !='' ">
+					and VERIFY_ID = #{VERIFY_ID}
+				</if>
+				<if test=" VERIFY_TIME != null and VERIFY_TIME !='' ">
+					and VERIFY_TIME = #{VERIFY_TIME}
+				</if>
+		</where>
+		order by CREATE_TIME desc,ID 
+	</select>
+
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select 
+				ID
+				,STD_ID
+				,STD_NAME
+				,STD_NUM
+				,VERIFY_MONEY
+				,LOAN_MONEY
+				,FILE
+				,FILENAME
+				,CREATOR
+				,CREATOR_NAME
+				,CREATE_TIME
+				,VERIFY
+				,VERIFY_NAME
+				,VERIFY_ID
+				,VERIFY_TIME
+				,REMARK
+		from PAY_LOAN 
+		<where>
+				<if test=" pd.ID != null and pd.ID !='' ">
+					and ID = #{pd.ID}
+				</if>
+				<if test=" pd.STD_ID != null and pd.STD_ID !='' ">
+					and STD_ID = #{pd.STD_ID}
+				</if>
+				<if test=" pd.STD_NAME != null and pd.STD_NAME !='' ">
+					and STD_NAME like #{pd.STD_NAME}
+				</if>
+				<if test=" pd.STD_NUM != null and pd.STD_NUM !='' ">
+					and STD_NUM = #{pd.STD_NUM}
+				</if>
+				<if test=" pd.VERIFY_MONEY != null and pd.VERIFY_MONEY !='' ">
+					and VERIFY_MONEY = #{pd.VERIFY_MONEY}
+				</if>
+				<if test=" pd.LOAN_MONEY != null and pd.LOAN_MONEY !='' ">
+					and LOAN_MONEY = #{pd.LOAN_MONEY}
+				</if>
+				<if test=" pd.FILE != null and pd.FILE !='' ">
+					and FILE = #{pd.FILE}
+				</if>
+				<if test=" pd.FILENAME != null and pd.FILENAME !='' ">
+					and FILENAME = #{pd.FILENAME}
+				</if>
+				<if test=" pd.CREATOR != null and pd.CREATOR !='' ">
+					and CREATOR = #{pd.CREATOR}
+				</if>
+				<if test=" pd.CREATOR_NAME != null and pd.CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{pd.CREATOR_NAME}
+				</if>
+				<if test=" pd.CREATE_TIME != null and pd.CREATE_TIME !='' ">
+					and CREATE_TIME = #{pd.CREATE_TIME}
+				</if>
+				<if test=" pd.VERIFY != null and pd.VERIFY !='' ">
+					and VERIFY = #{pd.VERIFY}
+				</if>
+				<if test=" pd.VERIFYS != null and pd.VERIFYS !='' ">
+					and VERIFY in (#{pd.VERIFYS})
+				</if>
+				<if test=" pd.VERIFY_NAME != null and pd.VERIFY_NAME !='' ">
+					and VERIFY_NAME = #{pd.VERIFY_NAME}
+				</if>
+				<if test=" pd.VERIFY_ID != null and pd.VERIFY_ID !='' ">
+					and VERIFY_ID = #{pd.VERIFY_ID}
+				</if>
+				<if test=" pd.VERIFY_TIME != null and pd.VERIFY_TIME !='' ">
+					and VERIFY_TIME = #{pd.VERIFY_TIME}
+				</if>
+		</where>
+		order by CREATE_TIME desc,ID 
+	</select>
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select 
+				ID
+				,STD_ID
+				,STD_NAME
+				,STD_NUM
+				,VERIFY_MONEY
+				,LOAN_MONEY
+				,FILE
+				,FILENAME
+				,CREATOR
+				,CREATOR_NAME
+				,CREATE_TIME
+				,VERIFY
+				,VERIFY_NAME
+				,VERIFY_ID
+				,VERIFY_TIME
+				,REMARK
+		from PAY_LOAN 
+		<where>
+				<if test=" ID != null and ID !='' ">
+					and ID = #{ID}
+				</if>
+				<if test=" STD_ID != null and STD_ID !='' ">
+					and STD_ID = #{STD_ID}
+				</if>
+				<if test=" STD_NAME != null and STD_NAME !='' ">
+					and STD_NAME like #{STD_NAME}
+				</if>
+				<if test=" STD_NUM != null and STD_NUM !='' ">
+					and STD_NUM = #{STD_NUM}
+				</if>
+				<if test=" VERIFY_MONEY != null and VERIFY_MONEY !='' ">
+					and VERIFY_MONEY = #{VERIFY_MONEY}
+				</if>
+				<if test=" LOAN_MONEY != null and LOAN_MONEY !='' ">
+					and LOAN_MONEY = #{LOAN_MONEY}
+				</if>
+				<if test=" FILE != null and FILE !='' ">
+					and FILE = #{FILE}
+				</if>
+				<if test=" FILENAME != null and FILENAME !='' ">
+					and FILENAME = #{FILENAME}
+				</if>
+				<if test=" CREATOR != null and CREATOR !='' ">
+					and CREATOR = #{CREATOR}
+				</if>
+				<if test=" CREATOR_NAME != null and CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{CREATOR_NAME}
+				</if>
+				<if test=" CREATE_TIME != null and CREATE_TIME !='' ">
+					and CREATE_TIME = #{CREATE_TIME}
+				</if>
+				<if test=" VERIFY != null and VERIFY !='' ">
+					and VERIFY = #{VERIFY}
+				</if>
+				<if test=" VERIFYS != null and VERIFYS !='' ">
+					and VERIFY in (#{VERIFYS})
+				</if>
+				<if test=" VERIFY_NAME != null and VERIFY_NAME !='' ">
+					and VERIFY_NAME = #{VERIFY_NAME}
+				</if>
+				<if test=" VERIFY_ID != null and VERIFY_ID !='' ">
+					and VERIFY_ID = #{VERIFY_ID}
+				</if>
+				<if test=" VERIFY_TIME != null and VERIFY_TIME !='' ">
+					and VERIFY_TIME = #{VERIFY_TIME}
+				</if>
+		</where>
+		order by CREATE_TIME desc,ID 
+	</select>
+	
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from PAY_LOAN
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

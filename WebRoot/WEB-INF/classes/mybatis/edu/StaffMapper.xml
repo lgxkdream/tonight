@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StaffMapper">
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into STAFF(
+			NAME,	
+			GENDER,	
+			JOB,	
+			JOB_NAME,	
+			CREATE_TIME,	
+			CREATOR,	
+			CREATOR_NAME,	
+			DELETED,	
+			ID,
+			SFZH,
+			PHONE,
+			BIRTHDAY,
+			ZZMM_NAME,
+			MINZU,		
+			ZZMM,
+			MINZU_NAME,
+			ADDRESS,
+			SUBJECT,
+			SUBJECT_NAME,
+			ENTRY_TIME,	
+			STATUS,
+			STATUS_NAME,
+			PIC,
+			HONOR,
+			WORK_AGE,
+			WAGE,
+			EDU,
+			EDU_NAME
+		) values (
+			#{NAME},	
+			#{GENDER},	
+			#{JOB},	
+			#{JOB_NAME},	
+			#{CREATE_TIME},	
+			#{CREATOR},	
+			#{CREATOR_NAME},	
+			#{DELETED},	
+			#{ID},
+			#{SFZH},
+			#{PHONE},
+			#{BIRTHDAY},
+			#{ZZMM_NAME},
+			#{MINZU},
+			#{ZZMM},
+			#{MINZU_NAME},
+			#{ADDRESS},
+			#{SUBJECT},
+			#{SUBJECT_NAME},
+			#{ENTRY_TIME},
+			#{STATUS},
+			#{STATUS_NAME},
+			#{PIC},
+			#{HONOR},
+			#{WORK_AGE},
+			#{WAGE},
+			#{EDU},
+			#{EDU_NAME}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from STAFF
+		where 
+			ID = #{ID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  STAFF
+			set 
+				NAME = #{NAME},
+				GENDER = #{GENDER},
+				JOB = #{JOB},
+				JOB_NAME = #{JOB_NAME},
+				CREATE_TIME = #{CREATE_TIME},
+				CREATOR = #{CREATOR},
+				CREATOR_NAME = #{CREATOR_NAME},
+				ID = ID,
+				SFZH = #{SFZH},
+				PHONE = #{PHONE},
+				BIRTHDAY = #{BIRTHDAY},
+				ZZMM_NAME = #{ZZMM_NAME},
+				MINZU  = #{MINZU},
+				ZZMM = #{ZZMM},
+				MINZU_NAME = #{MINZU_NAME},
+				ADDRESS = #{ADDRESS},
+				SUBJECT = #{SUBJECT},
+				SUBJECT_NAME = #{SUBJECT_NAME},
+				ENTRY_TIME = #{ENTRY_TIME},
+				STATUS = #{STATUS},
+				STATUS_NAME = #{STATUS_NAME},
+				PIC = #{PIC},
+				HONOR = #{HONOR},
+				WORK_AGE = #{WORK_AGE},
+				WAGE = #{WAGE},
+				EDU = #{EDU},
+				EDU_NAME = #{EDU_NAME}
+						
+			where 
+				ID = #{ID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			NAME,	
+			GENDER,	
+			JOB,	
+			JOB_NAME,	
+			CREATE_TIME,	
+			CREATOR,	
+			CREATOR_NAME,	
+			DELETED,	
+			ID,
+			SFZH,
+			PHONE,
+			BIRTHDAY,
+			ZZMM_NAME,
+			MINZU,		
+			ZZMM,
+			MINZU_NAME,
+			ADDRESS,
+			SUBJECT,
+			SUBJECT_NAME,
+			ENTRY_TIME,	
+			STATUS,
+			STATUS_NAME,
+			PIC,
+			HONOR,
+			WORK_AGE,
+			WAGE,
+			EDU,
+			EDU_NAME
+		from 
+			STAFF
+		where 
+			ID = #{ID}
+	</select>
+	
+	
+	<!-- 列表 -->
+ 	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				NAME,	
+				GENDER,	
+				JOB,	
+				JOB_NAME,	
+				CREATE_TIME,	
+				CREATOR,	
+				CREATOR_NAME,	
+				DELETED,	
+				ID,
+				SFZH,
+				PHONE,
+				BIRTHDAY,
+				ZZMM_NAME,
+				MINZU,
+				ZZMM,
+				MINZU_NAME,
+				ADDRESS,
+				SUBJECT,
+				SUBJECT_NAME,
+				ENTRY_TIME,
+				STATUS,
+				STATUS_NAME,
+				PIC,
+				HONOR,
+				WORK_AGE,
+				WAGE,
+				EDU,
+				EDU_NAME
+		from 
+				STAFF
+		<where>
+			<if test = " pd.NAME != null and pd.NAME != ''">
+				and NAME like #{pd.NAME}
+			</if>
+			<if test = " pd.CREATE_TIME_START != null  and pd.CREATE_TIME_START != ''">
+				and CREATE_TIME &gt;= #{pd.CREATE_TIME_START}
+			</if>
+			<if test = " pd.CREATE_TIME_END != null  and pd.CREATE_TIME_END != ''">
+				and CREATE_TIME &lt;= #{pd.CREATE_TIME_END}
+			</if>
+			<if test = " pd.ZZMM != null and pd.ZZMM != '' ">
+				and ZZMM = #{pd.ZZMM}
+			</if>
+			<if test = " pd.STATUS != null and pd.STATUS != '' ">
+				and STATUS = #{pd.STATUS}
+			</if>
+			<if test = " pd.JOB != null and pd.JOB != '' ">
+				and JOB = #{pd.JOB}
+			</if>
+		</where>
+		order by ENTRY_TIME,ID
+	</select>
+	
+		<!-- <select id="datalistPage" parameterType="page" resultType="pd">
+		select *  from STAFF order by id 
+		</select> -->
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				NAME,	
+				GENDER,	
+				JOB,	
+				JOB_NAME,	
+				CREATE_TIME,	
+				CREATOR,	
+				CREATOR_NAME,	
+				DELETED,	
+				ID,
+				SFZH,
+				PHONE,
+				BIRTHDAY,
+				ZZMM_NAME,
+				MINZU,
+				ZZMM,
+				MINZU_NAME,
+				ADDRESS,
+				SUBJECT,
+				SUBJECT_NAME,
+				ENTRY_TIME,
+				STATUS,
+				STATUS_NAME,
+				PIC,
+				HONOR,
+				WORK_AGE,
+				WAGE,
+				EDU,
+				EDU_NAME
+				
+		from 
+				STAFF
+		<where>
+			<if test = " NAME != null and NAME != ''">
+				and NAME like #{NAME}
+			</if>
+			<if test = " CREATE_TIME_START != null  and CREATE_TIME_START != ''">
+				and CREATE_TIME &gt;= #{CREATE_TIME_START}
+			</if>
+			<if test = " CREATE_TIME_END != null  and CREATE_TIME_END != ''">
+				and CREATE_TIME &lt;= #{CREATE_TIME_END}
+			</if>
+			<if test = " ZZMM != null and ZZMM != '' ">
+				and ZZMM = #{ZZMM}
+			</if>
+		</where>
+		order by CREATE_TIME desc,ID 
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from STAFF
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

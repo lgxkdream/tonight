@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HomeworkMapper">
+
+
+	<!-- 新增 -->
+	<insert id="save" parameterType="pd">
+		insert into HOMEWORK(
+		ID,
+		TITLE,
+		TYPE,
+		TYPE_NAME,
+		FILE_NAME,
+		FILE_PATH,
+		ANSWER,
+		ANSWER_NAME,
+		ANSWER_PATH,
+		CREATE_TIME,
+		CREATOR,
+		CREATOR_NAME
+		) values (
+		#{ID},
+		#{TITLE},
+		#{TYPE},
+		#{TYPE_NAME},
+		#{FILE_NAME},
+		#{FILE_PATH},
+		#{ANSWER},
+		#{ANSWER_NAME},
+		#{ANSWER_PATH},
+		#{CREATE_TIME},
+		#{CREATOR},
+		#{CREATOR_NAME}
+		)
+	</insert>
+
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="pd">
+		delete from HOMEWORK
+		where
+		ID = #{ID}
+	</delete>
+	
+	<!-- 删除题目附件 -->
+	<update id="deleteFile" parameterType="pd">
+		update HOMEWORK
+			set
+			FILE_NAME = null,
+			FILE_PATH =null
+		where
+		ID = #{ID}
+	</update>
+	
+	<!-- 删除答案附件 -->
+	<update id="deleteAnswer" parameterType="pd">
+		update HOMEWORK
+			set
+			ANSWER_NAME = null,
+			ANSWER_PATH =null
+		where
+		ID = #{ID}
+	</update>
+	
+
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update HOMEWORK
+		set
+		TITLE = #{TITLE},
+		TYPE = #{TYPE},
+		TYPE_NAME = #{TYPE_NAME},
+		FILE_NAME=#{FILE_NAME},
+		FILE_PATH = #{FILE_PATH},
+		ANSWER=#{ANSWER},
+		ANSWER_NAME=#{ANSWER_NAME},
+		ANSWER_PATH=#{ANSWER_PATH},
+		CREATE_TIME = #{CREATE_TIME},
+		CREATOR = #{CREATOR},
+		CREATOR_NAME = #{CREATOR_NAME},
+		ID = #{ID}
+		where
+		ID = #{ID}
+	</update>
+
+
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select
+		TITLE,
+		TYPE,
+		TYPE_NAME,
+		FILE_NAME,
+		FILE_PATH,
+		ANSWER,
+		ANSWER_NAME,
+		ANSWER_PATH,
+		CREATE_TIME,
+		CREATOR,
+		CREATOR_NAME,
+		ID
+		from
+		HOMEWORK
+		where
+		ID = #{ID}
+	</select>
+
+
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+		a.TITLE,
+		a.TYPE,
+		a.TYPE_NAME,
+		a.FILE_NAME,
+		a.FILE_PATH,
+		a.ANSWER,
+		a.ANSWER_NAME,
+		a.ANSWER_PATH,
+		a.CREATE_TIME,
+		a.CREATOR,
+		a.CREATOR_NAME,
+		a.ID
+		from
+		HOMEWORK a
+		<where>
+			<if test=" pd.TITLE != null and pd.TITLE !='' ">
+				and TITLE like "%"#{pd.TITLE}"%"
+			</if>
+			<if test=" pd.TYPE != null and pd.TYPE!=''">
+				and TYPE=#{pd.TYPE}
+			</if>
+			<if test=" pd.CREATE_TIME_START != null and pd.CREATE_TIME_START !='' ">
+				and #{pd.CREATE_TIME_START} &lt;= CREATE_TIME
+			</if>
+			<if test=" pd.CREATE_TIME_END != null and pd.CREATE_TIME_END !='' ">
+				and CREATE_TIME &lt;= #{pd.CREATE_TIME_END}
+			</if>
+		</where>
+	</select>
+
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		a.TITLE,
+		a.TYPE,
+		a.TYPE_NAME,
+		a.FILE_NAME,
+		a.FILE_PATH,
+		a.ANSWER,
+		a.ANSWER_NAME,
+		a.ANSWER_PATH,
+		a.CREATE_TIME,
+		a.CREATOR,
+		a.CREATOR_NAME,
+		a.ID
+		from
+		HOMEWORK a
+	</select>
+
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from HOMEWORK
+		where
+		ID in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- 按id数组查询题目-->
+	<select id="selectByIds" resultType="pd">
+		select
+				a.ID,	
+				a.TITLE,	
+				a.TYPE,	
+				a.TYPE_NAME,	
+				a.FILE_PATH,	
+				a.CREATE_TIME,	
+				a.CREATOR,	
+				a.CREATOR_NAME,
+				a.ANSWER,
+				a.ANSWER_PATH,
+				a.FILE_NAME
+		from 
+				HOMEWORK a
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</select>
+	
+</mapper>

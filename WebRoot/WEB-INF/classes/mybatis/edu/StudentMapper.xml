@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StudentMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into STUDENT(
+			ID,	
+			STD_NUM,	
+			NAME,	
+			GENDER,	
+			BIRTHDAY,	
+			MINZU,	
+			MINZU_NAME,	
+			STATUS,	
+			STATUS_NAME,	
+			SFZH,	
+			SCHOOL,	
+			SCHOOL_NAME,	
+			SCHOOL_YEAR,	
+			CLASS,	
+			ROOM_NUM,	
+			JR_CLASS,	
+			JR_CLASS_NAME,	
+			ENGLISH,	
+			ENGLISH_NAME,	
+			PHONE,	
+			QIANDAOKAHAO,	
+			PARENT,	
+			PARENT_PHONE,	
+			JINJI_LXR,	
+			JINJI_DH,	
+			DAOYUAN,	
+			DAOYUAN_DH,	
+			YIXIANG,	
+			PIC,	
+			SPECIALITY,	
+			SPECIALITY_NAME,	
+			EMAIL,	
+			QQ,	
+			REMARK,	
+			DELETED,	
+			CREATOR,	
+			CREATOR_NAME,	
+			CREATE_TIME	
+		) values (
+			#{ID},	
+			#{STD_NUM},	
+			#{NAME},	
+			#{GENDER},	
+			#{BIRTHDAY},	
+			#{MINZU},	
+			#{MINZU_NAME},	
+			#{STATUS},	
+			#{STATUS_NAME},	
+			#{SFZH},	
+			#{SCHOOL},	
+			#{SCHOOL_NAME},	
+			#{SCHOOL_YEAR},	
+			#{CLASS},	
+			#{ROOM_NUM},	
+			#{JR_CLASS},	
+			#{JR_CLASS_NAME},	
+			#{ENGLISH},	
+			#{ENGLISH_NAME},	
+			#{PHONE},	
+			#{QIANDAOKAHAO},	
+			#{PARENT},	
+			#{PARENT_PHONE},	
+			#{JINJI_LXR},	
+			#{JINJI_DH},	
+			#{DAOYUAN},	
+			#{DAOYUAN_DH},	
+			#{YIXIANG},	
+			#{PIC},	
+			#{SPECIALITY},	
+			#{SPECIALITY_NAME},	
+			#{EMAIL},	
+			#{QQ},	
+			#{REMARK},	
+			#{DELETED},	
+			#{CREATOR},	
+			#{CREATOR_NAME},	
+			#{CREATE_TIME}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from STUDENT
+		where 
+			ID = #{ID}
+	</delete>
+	
+	<update id="setClass" parameterType="pd">
+		update STUDENT
+			set jr_class=#{JR_CLASS},
+			jr_class_name=#{JR_CLASS_NAME}
+		where 
+			ID in
+			<foreach item="item" index="index" collection="studentIdArray" open="(" separator="," close=")">
+                 #{item}
+			</foreach>
+	</update>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  STUDENT
+			<set> 
+			<if test=" ID != null ">
+				ID = #{ID},
+			</if>
+			<if test=" STD_NUM != null ">
+				STD_NUM = #{STD_NUM},
+			</if>
+			<if test=" NAME != null ">
+				NAME = #{NAME},
+			</if>
+			<if test=" GENDER != null ">
+				GENDER = #{GENDER},
+			</if>
+			<if test=" BIRTHDAY != null ">
+				BIRTHDAY = #{BIRTHDAY},
+			</if>
+			<if test=" MINZU != null ">
+				MINZU = #{MINZU},
+			</if>
+			<if test=" MINZU_NAME != null ">
+				MINZU_NAME = #{MINZU_NAME},
+			</if>
+			<if test=" STATUS != null ">
+				STATUS = #{STATUS},
+			</if>
+			<if test=" STATUS_NAME != null ">
+				STATUS_NAME = #{STATUS_NAME},
+			</if>
+			<if test=" SFZH != null ">
+				SFZH = #{SFZH},
+			</if>
+			<if test=" SCHOOL != null ">
+				SCHOOL = #{SCHOOL},
+			</if>
+			<if test=" SCHOOL_NAME != null ">
+				SCHOOL_NAME = #{SCHOOL_NAME},
+			</if>
+			<if test=" SCHOOL_YEAR != null ">
+				SCHOOL_YEAR = #{SCHOOL_YEAR},
+			</if>
+			<if test=" CLASS != null ">
+				CLASS = #{CLASS},
+			</if>
+			<if test=" ROOM_NUM != null ">
+				ROOM_NUM = #{ROOM_NUM},
+			</if>
+			<if test=" JR_CLASS != null ">
+				JR_CLASS = #{JR_CLASS},
+			</if>
+			<if test=" JR_CLASS_NAME != null ">
+				JR_CLASS_NAME = #{JR_CLASS_NAME},
+			</if>
+			<if test=" ENGLISH != null ">
+				ENGLISH = #{ENGLISH},
+			</if>
+			<if test=" ENGLISH_NAME != null ">
+				ENGLISH_NAME = #{ENGLISH_NAME},
+			</if>
+			<if test=" PHONE != null ">
+				PHONE = #{PHONE},
+			</if>
+			<if test=" QIANDAOKAHAO != null ">
+				QIANDAOKAHAO = #{QIANDAOKAHAO},
+			</if>
+			<if test=" PARENT != null ">
+				PARENT = #{PARENT},
+			</if>
+			<if test=" PARENT_PHONE != null ">
+				PARENT_PHONE = #{PARENT_PHONE},
+			</if>
+			<if test=" JINJI_LXR != null ">
+				JINJI_LXR = #{JINJI_LXR},
+			</if>
+			<if test=" JINJI_DH != null ">
+				JINJI_DH = #{JINJI_DH},
+			</if>
+			<if test=" DAOYUAN != null ">
+				DAOYUAN = #{DAOYUAN},
+			</if>
+			<if test=" DAOYUAN_DH != null ">
+				DAOYUAN_DH = #{DAOYUAN_DH},
+			</if>
+			<if test=" YIXIANG != null ">
+				YIXIANG = #{YIXIANG},
+			</if>
+			<if test=" PIC != null ">
+				PIC = #{PIC},
+			</if>
+			<if test=" SPECIALITY != null ">
+				SPECIALITY = #{SPECIALITY},
+			</if>
+			<if test=" SPECIALITY_NAME != null ">
+				SPECIALITY_NAME = #{SPECIALITY_NAME},
+			</if>
+			<if test=" EMAIL != null ">
+				EMAIL = #{EMAIL},
+			</if>
+			<if test=" QQ != null ">
+				QQ = #{QQ},
+			</if>
+			<if test=" REMARK != null ">
+				REMARK = #{REMARK},
+			</if>
+			<if test=" DELETED != null ">
+				DELETED = #{DELETED},
+			</if>
+			<if test=" CREATOR != null ">
+				CREATOR = #{CREATOR},
+			</if>
+			<if test=" CREATOR_NAME != null ">
+				CREATOR_NAME = #{CREATOR_NAME},
+			</if>
+			<if test=" CREATE_TIME != null ">
+				CREATE_TIME = #{CREATE_TIME},
+			</if>
+			</set>
+			where 
+				ID = #{ID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			ID,	
+			STD_NUM,	
+			NAME,	
+			GENDER,	
+			BIRTHDAY,	
+			MINZU,	
+			MINZU_NAME,	
+			STATUS,	
+			STATUS_NAME,	
+			SFZH,	
+			SCHOOL,	
+			SCHOOL_NAME,	
+			SCHOOL_YEAR,	
+			CLASS,	
+			ROOM_NUM,	
+			JR_CLASS,	
+			JR_CLASS_NAME,	
+			ENGLISH,	
+			ENGLISH_NAME,	
+			PHONE,	
+			QIANDAOKAHAO,	
+			PARENT,	
+			PARENT_PHONE,	
+			JINJI_LXR,	
+			JINJI_DH,	
+			DAOYUAN,	
+			DAOYUAN_DH,	
+			YIXIANG,	
+			PIC,	
+			SPECIALITY,	
+			SPECIALITY_NAME,	
+			EMAIL,	
+			QQ,	
+			REMARK,	
+			DELETED,	
+			CREATOR,	
+			CREATOR_NAME,	
+			CREATE_TIME,	
+			ID
+		from 
+			STUDENT
+		where 
+			ID = #{ID}
+	</select>
+	
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.ID,	
+				a.STD_NUM,	
+				a.NAME,	
+				a.GENDER,	
+				a.BIRTHDAY,	
+				a.MINZU,	
+				a.MINZU_NAME,	
+				a.STATUS,	
+				a.STATUS_NAME,	
+				a.SFZH,	
+				a.SCHOOL,	
+				a.SCHOOL_NAME,	
+				a.SCHOOL_YEAR,	
+				a.CLASS,	
+				a.ROOM_NUM,	
+				a.JR_CLASS,	
+				a.JR_CLASS_NAME,	
+				a.ENGLISH,	
+				a.ENGLISH_NAME,	
+				a.PHONE,	
+				a.QIANDAOKAHAO,	
+				a.PARENT,	
+				a.PARENT_PHONE,	
+				a.JINJI_LXR,	
+				a.JINJI_DH,	
+				a.DAOYUAN,	
+				a.DAOYUAN_DH,	
+				a.YIXIANG,	
+				a.PIC,	
+				a.SPECIALITY,	
+				a.SPECIALITY_NAME,	
+				a.EMAIL,	
+				a.QQ,	
+				a.REMARK,	
+				a.DELETED,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.CREATE_TIME
+		from 
+				STUDENT a
+		<where>
+				<if test=" pd.ID != null and pd.ID !='' ">
+					and ID = #{pd.ID}
+				</if>
+				<if test=" pd.STD_NUM != null and pd.STD_NUM !='' ">
+					and STD_NUM = #{pd.STD_NUM}
+				</if>
+				<if test=" pd.NAME != null and pd.NAME !='' ">
+					and NAME like "%"#{pd.NAME}"%"
+				</if>
+				<if test=" pd.GENDER != null and pd.GENDER !='' ">
+					and GENDER = #{pd.GENDER}
+				</if>
+				<if test=" pd.BIRTHDAY != null and pd.BIRTHDAY !='' ">
+					and BIRTHDAY = #{pd.BIRTHDAY}
+				</if>
+				<if test=" pd.MINZU != null and pd.MINZU !='' ">
+					and MINZU = #{pd.MINZU}
+				</if>
+				<if test=" pd.MINZU_NAME != null and pd.MINZU_NAME !='' ">
+					and MINZU_NAME = #{pd.MINZU_NAME}
+				</if>
+				<if test=" pd.STATUS != null and pd.STATUS !='' ">
+					and STATUS = #{pd.STATUS}
+				</if>
+				<if test=" pd.STATUS_NAME != null and pd.STATUS_NAME !='' ">
+					and STATUS_NAME = #{pd.STATUS_NAME}
+				</if>
+				<if test=" pd.SFZH != null and pd.SFZH !='' ">
+					and SFZH = #{pd.SFZH}
+				</if>
+				<if test=" pd.SCHOOL != null and pd.SCHOOL !='' ">
+					and SCHOOL = #{pd.SCHOOL}
+				</if>
+				<if test=" pd.SCHOOL_NAME != null and pd.SCHOOL_NAME !='' ">
+					and SCHOOL_NAME = #{pd.SCHOOL_NAME}
+				</if>
+				<if test=" pd.SCHOOL_YEAR != null and pd.SCHOOL_YEAR !='' ">
+					and SCHOOL_YEAR = #{pd.SCHOOL_YEAR}
+				</if>
+				<if test=" pd.CLASS != null and pd.CLASS !='' ">
+					and CLASS = #{pd.CLASS}
+				</if>
+				<if test=" pd.ROOM_NUM != null and pd.ROOM_NUM !='' ">
+					and ROOM_NUM = #{pd.ROOM_NUM}
+				</if>
+				<if test=" pd.JR_CLASS != null and pd.JR_CLASS !='' ">
+					and JR_CLASS = #{pd.JR_CLASS}
+				</if>
+				<if test=" pd.JR_CLASS_NAME != null and pd.JR_CLASS_NAME !='' ">
+					and JR_CLASS_NAME = #{pd.JR_CLASS_NAME}
+				</if>
+				<if test=" pd.ENGLISH != null and pd.ENGLISH !='' ">
+					and ENGLISH = #{pd.ENGLISH}
+				</if>
+				<if test=" pd.ENGLISH_NAME != null and pd.ENGLISH_NAME !='' ">
+					and ENGLISH_NAME = #{pd.ENGLISH_NAME}
+				</if>
+				<if test=" pd.PHONE != null and pd.PHONE !='' ">
+					and PHONE = #{pd.PHONE}
+				</if>
+				<if test=" pd.QIANDAOKAHAO != null and pd.QIANDAOKAHAO !='' ">
+					and QIANDAOKAHAO = #{pd.QIANDAOKAHAO}
+				</if>
+				<if test=" pd.PARENT != null and pd.PARENT !='' ">
+					and PARENT = #{pd.PARENT}
+				</if>
+				<if test=" pd.PARENT_PHONE != null and pd.PARENT_PHONE !='' ">
+					and PARENT_PHONE = #{pd.PARENT_PHONE}
+				</if>
+				<if test=" pd.JINJI_LXR != null and pd.JINJI_LXR !='' ">
+					and JINJI_LXR = #{pd.JINJI_LXR}
+				</if>
+				<if test=" pd.JINJI_DH != null and pd.JINJI_DH !='' ">
+					and JINJI_DH = #{pd.JINJI_DH}
+				</if>
+				<if test=" pd.DAOYUAN != null and pd.DAOYUAN !='' ">
+					and DAOYUAN = #{pd.DAOYUAN}
+				</if>
+				<if test=" pd.DAOYUAN_DH != null and pd.DAOYUAN_DH !='' ">
+					and DAOYUAN_DH = #{pd.DAOYUAN_DH}
+				</if>
+				<if test=" pd.YIXIANG != null and pd.YIXIANG !='' ">
+					and YIXIANG = #{pd.YIXIANG}
+				</if>
+				<if test=" pd.PIC != null and pd.PIC !='' ">
+					and PIC = #{pd.PIC}
+				</if>
+				<if test=" pd.SPECIALITY != null and pd.SPECIALITY !='' ">
+					and SPECIALITY = #{pd.SPECIALITY}
+				</if>
+				<if test=" pd.SPECIALITY_NAME != null and pd.SPECIALITY_NAME !='' ">
+					and SPECIALITY_NAME = #{pd.SPECIALITY_NAME}
+				</if>
+				<if test=" pd.EMAIL != null and pd.EMAIL !='' ">
+					and EMAIL = #{pd.EMAIL}
+				</if>
+				<if test=" pd.QQ != null and pd.QQ !='' ">
+					and QQ = #{pd.QQ}
+				</if>
+				<if test=" pd.REMARK != null and pd.REMARK !='' ">
+					and REMARK = #{pd.REMARK}
+				</if>
+				<if test=" pd.DELETED != null and pd.DELETED !='' ">
+					and DELETED = #{pd.DELETED}
+				</if>
+				<if test=" pd.CREATOR != null and pd.CREATOR !='' ">
+					and CREATOR = #{pd.CREATOR}
+				</if>
+				<if test=" pd.CREATOR_NAME != null and pd.CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{pd.CREATOR_NAME}
+				</if>
+				<if test=" pd.CREATE_TIME_START != null and pd.CREATE_TIME_START !='' ">
+					and  #{pd.CREATE_TIME_START} &lt;= CREATE_TIME
+				</if>
+				<if test=" pd.CREATE_TIME_END != null and pd.CREATE_TIME_END !='' ">
+					and  CREATE_TIME &lt;= #{pd.CREATE_TIME_END} 
+				</if>
+		</where>
+		order by 
+		<if test="pd.ORDERBY == 'YIXIANG' "> 
+		a.YIXIANG desc,
+		</if>
+		<if test="pd.ORDERBY == 'JR_CLASS' "> 
+		a.JR_CLASS ,a.CREATE_TIME desc,
+		</if>
+		a.STD_NUM desc,
+		a.ID
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.ID,	
+				a.STD_NUM,	
+				a.NAME,	
+				a.GENDER,	
+				a.BIRTHDAY,	
+				a.MINZU,	
+				a.MINZU_NAME,	
+				a.STATUS,	
+				a.STATUS_NAME,	
+				a.SFZH,	
+				a.SCHOOL,	
+				a.SCHOOL_NAME,	
+				a.SCHOOL_YEAR,	
+				a.CLASS,	
+				a.ROOM_NUM,	
+				a.JR_CLASS,	
+				a.JR_CLASS_NAME,	
+				a.ENGLISH,	
+				a.ENGLISH_NAME,	
+				a.PHONE,	
+				a.QIANDAOKAHAO,	
+				a.PARENT,	
+				a.PARENT_PHONE,	
+				a.JINJI_LXR,	
+				a.JINJI_DH,	
+				a.DAOYUAN,	
+				a.DAOYUAN_DH,	
+				a.YIXIANG,	
+				a.PIC,	
+				a.SPECIALITY,	
+				a.SPECIALITY_NAME,	
+				a.EMAIL,	
+				a.QQ,	
+				a.REMARK,	
+				a.DELETED,	
+				a.CREATOR,	
+				a.CREATOR_NAME,	
+				a.CREATE_TIME
+		from 
+				STUDENT a
+		<where>
+				<if test=" ID != null and ID !='' ">
+					and ID = #{ID}
+				</if>
+				<if test=" STD_NUM != null and STD_NUM !='' ">
+					and STD_NUM = #{STD_NUM}
+				</if>
+				<if test=" NAME != null and NAME !='' ">
+					and NAME like "%"#{NAME}"%"
+				</if>
+				<if test=" GENDER != null and GENDER !='' ">
+					and GENDER = #{GENDER}
+				</if>
+				<if test=" BIRTHDAY != null and BIRTHDAY !='' ">
+					and BIRTHDAY = #{BIRTHDAY}
+				</if>
+				<if test=" MINZU != null and MINZU !='' ">
+					and MINZU = #{MINZU}
+				</if>
+				<if test=" MINZU_NAME != null and MINZU_NAME !='' ">
+					and MINZU_NAME = #{MINZU_NAME}
+				</if>
+				<if test=" STATUS != null and STATUS !='' ">
+					and STATUS = #{STATUS}
+				</if>
+				<if test=" STATUS_NAME != null and STATUS_NAME !='' ">
+					and STATUS_NAME = #{STATUS_NAME}
+				</if>
+				<if test=" SFZH != null and SFZH !='' ">
+					and SFZH = #{SFZH}
+				</if>
+				<if test=" SCHOOL != null and SCHOOL !='' ">
+					and SCHOOL = #{SCHOOL}
+				</if>
+				<if test=" SCHOOL_NAME != null and SCHOOL_NAME !='' ">
+					and SCHOOL_NAME = #{SCHOOL_NAME}
+				</if>
+				<if test=" SCHOOL_YEAR != null and SCHOOL_YEAR !='' ">
+					and SCHOOL_YEAR = #{SCHOOL_YEAR}
+				</if>
+				<if test=" CLASS != null and CLASS !='' ">
+					and CLASS = #{CLASS}
+				</if>
+				<if test=" ROOM_NUM != null and ROOM_NUM !='' ">
+					and ROOM_NUM = #{ROOM_NUM}
+				</if>
+				<if test=" JR_CLASS != null and JR_CLASS !='' ">
+					and JR_CLASS = #{JR_CLASS}
+				</if>
+				<if test=" JR_CLASS_NAME != null and JR_CLASS_NAME !='' ">
+					and JR_CLASS_NAME = #{JR_CLASS_NAME}
+				</if>
+				<if test=" ENGLISH != null and ENGLISH !='' ">
+					and ENGLISH = #{ENGLISH}
+				</if>
+				<if test=" ENGLISH_NAME != null and ENGLISH_NAME !='' ">
+					and ENGLISH_NAME = #{ENGLISH_NAME}
+				</if>
+				<if test=" PHONE != null and PHONE !='' ">
+					and PHONE = #{PHONE}
+				</if>
+				<if test=" QIANDAOKAHAO != null and QIANDAOKAHAO !='' ">
+					and QIANDAOKAHAO = #{QIANDAOKAHAO}
+				</if>
+				<if test=" PARENT != null and PARENT !='' ">
+					and PARENT = #{PARENT}
+				</if>
+				<if test=" PARENT_PHONE != null and PARENT_PHONE !='' ">
+					and PARENT_PHONE = #{PARENT_PHONE}
+				</if>
+				<if test=" JINJI_LXR != null and JINJI_LXR !='' ">
+					and JINJI_LXR = #{JINJI_LXR}
+				</if>
+				<if test=" JINJI_DH != null and JINJI_DH !='' ">
+					and JINJI_DH = #{JINJI_DH}
+				</if>
+				<if test=" DAOYUAN != null and DAOYUAN !='' ">
+					and DAOYUAN = #{DAOYUAN}
+				</if>
+				<if test=" DAOYUAN_DH != null and DAOYUAN_DH !='' ">
+					and DAOYUAN_DH = #{DAOYUAN_DH}
+				</if>
+				<if test=" YIXIANG != null and YIXIANG !='' ">
+					and YIXIANG = #{YIXIANG}
+				</if>
+				<if test=" PIC != null and PIC !='' ">
+					and PIC = #{PIC}
+				</if>
+				<if test=" SPECIALITY != null and SPECIALITY !='' ">
+					and SPECIALITY = #{SPECIALITY}
+				</if>
+				<if test=" SPECIALITY_NAME != null and SPECIALITY_NAME !='' ">
+					and SPECIALITY_NAME = #{SPECIALITY_NAME}
+				</if>
+				<if test=" EMAIL != null and EMAIL !='' ">
+					and EMAIL = #{EMAIL}
+				</if>
+				<if test=" QQ != null and QQ !='' ">
+					and QQ = #{QQ}
+				</if>
+				<if test=" REMARK != null and REMARK !='' ">
+					and REMARK = #{REMARK}
+				</if>
+				<if test=" DELETED != null and DELETED !='' ">
+					and DELETED = #{DELETED}
+				</if>
+				<if test=" CREATOR != null and CREATOR !='' ">
+					and CREATOR = #{CREATOR}
+				</if>
+				<if test=" CREATOR_NAME != null and CREATOR_NAME !='' ">
+					and CREATOR_NAME = #{CREATOR_NAME}
+				</if>
+				<if test=" CREATE_TIME_START != null and CREATE_TIME_START !='' ">
+					and  #{CREATE_TIME_START} &lt;= CREATE_TIME
+				</if>
+				<if test=" CREATE_TIME_END != null and CREATE_TIME_END !='' ">
+					and  CREATE_TIME &lt;= #{CREATE_TIME_END} 
+				</if>
+		</where>
+		order by a.CREATE_TIME desc,a.ID
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from STUDENT
+		where 
+			ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>
