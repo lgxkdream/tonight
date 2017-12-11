@@ -43,6 +43,7 @@
 			}
 		)
 //		哈哈，我才是一只狗
+		说错了，我是一头猪啊
 <%--		$.each(data.list, function(i, list){--%>
 <%--				nextPage(${page.currentPage});--%>
 <%--		 });--%>
