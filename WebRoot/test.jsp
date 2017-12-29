@@ -45,9 +45,8 @@
 
 		$.each(data.list, function(i, list){
 				nextPage(${page.currentPage});
-				alert();
 		 });
-
+		
 		</script>
 		
 	</body>
